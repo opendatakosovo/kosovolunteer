@@ -1,0 +1,151 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript">
+        
+
+
+          var eventi="";
+
+          function registerEvent(){
+              var url = '/create/event';
+              var name = $('#txt_name').val();
+              var description = $('#txt_description').val();
+              var applicants = $('#nr_applicants').val();
+
+              //building dictionary with values from inputs
+              var arr_data = {"name": name,
+                      "description": description,
+                      "applicants": applicants};
+
+              //Converting the dictionary to Json_Document
+              var data = JSON.stringify(arr_data);
+              
+              //Making a post request in url with data converted to json
+              $.ajax({
+                  type: 'POST',
+                  url: url,
+                  dataType: 'json',
+                  contentType: 'application/json',
+                  data: data,
+                  success: alert('success')
+              })
+          }
+          function eventId(event){
+                eventi = event;
+              }
+
+          function registerVolunteer(event_id){
+              var url = "/register/volunteer";
+              var name = $('#txt_nameapply').val();
+              var email = $('#txt_email').val();
+              var eventID = eventi;
+
+
+              var arr_data = {
+                              "eventID": eventID,
+                              "name": name,
+                              "e-mail": email
+                            };
+
+            //Converting the dictionary to Json_Document
+            var data = JSON.stringify(arr_data);
+            
+              //Making a post request in url with data converted to json
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: data,
+                    success: alert('success')
+                  })
+              }
+
+              
+        </script>
+      
+
+        <title>Events</title>
+    </head>
+<body>
+  
+
+<div data-role="page" id="pageone">
+          <div data-role="panel" id="myPanel">
+            <h2>Register Event</h2>
+              <form>
+                  <label>Name: </label>
+                  <input type="text" id="txt_name">
+                  <label>Description: </label>
+                  <textarea rows="4" cols="50" id="txt_description">
+                  </textarea>
+                  <label>Needed volunters:</label>
+                  <input type="text" id="txt_name">
+                  <br>
+                  <button id="btn_save" onclick="javascript:registerEvent();" >Save</button>
+
+              </form>
+          </div>
+
+            <div data-role="panel" id="myPanel1">
+                    <h2>Apply as volunteer</h2>
+                      <form>
+                          <label>Name: </label>
+                          <input type="text" id="txt_nameapply">
+                          <label>E-mail: </label>
+                          <input type="text" id="txt_email"><br>
+                          <button id="btn_apply" onclick="javascript:registerVolunteer();">Apply</button>
+                  
+
+                      </form>
+            </div>
+
+          <div data-role="header">
+            <h1>Kosovo Volunters</h1>
+          </div>
+
+          <div data-role="main" class="ui-content">
+                <a href="#myPanel" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" style="left: 590px;">Register Event</a><br><br>
+                
+                
+              <div id="display_events" style="margin-left: 500px;">
+                {% for item in result %}
+                <hr style="width:400; margin-left: 1px;"></hr>
+                   <form>
+                     <table class="table table-bordered">
+                       <tr >
+                          <td>
+                            <input type="hidden" id="event-id" value="{{item['_id']['$oid']}}">
+                            EventId:</td><td><p>{{item['_id']['$oid']}}</p>
+                            </td></tr>
+
+                          <tr>
+                          <td>Name:</td><td><p>{{ item['name'] }}</p></td>
+                          </tr>
+                          <tr><td>Description:</td><td> <p> {{item['description']}}</p></td>
+                          </tr>
+                          <tr><td>Needed volunters: </td><td><p>{{item['applicants']}}</p></td>
+                          </tr>
+                  
+
+                     </table>
+                    <form>
+                   <a href="#myPanel1"><button id="btn_apply_event" style="margin-left:100px;" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" onclick="javascript:eventId('{{item['_id']['$oid']}}');" >Apply</button></a>
+
+                {% endfor %}
+
+              </div>
+       </div>
+
+
+            <div data-role="footer">
+              <h5>UNDP Events</h5>
+          </div>
+        </div>
+    </body>
+</html>
