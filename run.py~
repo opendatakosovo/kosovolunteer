@@ -1,6 +1,6 @@
 import argparse
 
-from ve import create_app
+from gpv import create_app
 
 # Create the flask app.
 app = create_app()
