@@ -1,13 +1,11 @@
 from flask import Flask
 from flask.views import View
-from flask import Response, render_template, request, json
+from flask import Response, request
 import urllib2
-from bson import json_util, SON
 from ve import utils
-import argparse
 
 class CreateEvent(View):
-    
+
     def dispatch_request(self):
 
         api_base_url = utils.get_api_url()

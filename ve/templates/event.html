@@ -132,7 +132,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="btn_save" class="btn btn-primary" onclick="javascript:registerEvent()">Register</button>
+                <button type="button" id="btn_save" class="btn btn-primary" onclick="javascript:registerEvent()" data-dismiss="modal" >Register</button>
               </div>
             </div>
           </div>
@@ -167,9 +167,11 @@
               {% for item1 in result1 %}
               {% if item1['eventId'] == item['_id']['$oid'] %}
               <td id ="txt_Numri">{{item1['Numri']}}</td>
+           
+
               {% endif %}
               {% endfor %}
-              <td> 
+                 <td> 
                 <button type="button" id="btn_apply_event" class="btn btn-primary" data-toggle="modal" data-target="#smallModal" onclick="javascript:eventId('{{item['_id']['$oid']}}');">Apply</button>
 
               
@@ -214,7 +216,7 @@
               </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" id="btn_apply" class="btn btn-primary" onclick="javascript:registerVolunteer();">Apply</button>
+            <button type="button" id="btn_apply" class="btn btn-primary" onclick="javascript:registerVolunteer();" data-dismiss="modal">Apply</button>
           </div>
         </div>
       </div>

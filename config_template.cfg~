@@ -3,7 +3,7 @@ SERVER_PORT = 5000
 BASE_PATH = 
 
 [Api]
-API_GJAKOVA_PROCUREMENT = http://0.0.0.0:5030
+API_VOLUNTEER_API = http://0.0.0.0:5030
 
 [Logging]
 PATH = 
