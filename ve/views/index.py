@@ -8,11 +8,8 @@ class Index(View):
     def dispatch_request(self):
         api_base_url = utils.get_api_url()
         url = "%s/display/events" %(api_base_url)
-        DisplayEvents = urlopen(url).read()
-        json_result = json.loads(DisplayEvents)
 
-        url1 = "%s/display/volunteer"%(api_base_url)
-        DisplayVolunter = urlopen(url1).read()
-        json_result1 = json.loads(DisplayVolunter)
+        events = urlopen(url).read()
+        events_json = json.loads(events)
 
-        return render_template("event.html", DisplayEvents=json_result, DisplayVolunter=json_result1)
+        return render_template("event.html", events=events_json)

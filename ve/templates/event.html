@@ -263,7 +263,7 @@
           </tr>
         </thead>
         <tbody>
-        {% for event in DisplayEvents %}
+        {% for event in events %}
           <tr id="event-{{ event['_id']['$oid'] }}" data-event-id="{{ event['_id']['$oid'] }}">
             <td style="display:none;">{{ event['_id']['$oid'] }}</td>
             <td>{{ event['name'] }}</td>                
