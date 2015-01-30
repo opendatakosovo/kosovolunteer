@@ -178,11 +178,6 @@
                 // Relaod the page
                 window.location.href = '/'
           }
-
-
- 
-
-
   </script>
 
   </head>
@@ -273,8 +268,8 @@
             <td style="display:none;">{{ event['_id']['$oid'] }}</td>
             <td>{{ event['name'] }}</td>                
             <td style="width:500px;">{{event['description']}}</td>                   
-            <td id="txt_NrApp">{{event['applicants']['needed']}}</td>
-            <td id ="txt_Numri">{{event['applicants']['applied']}}</td>
+            <td>{{event['applicants']['needed']}}</td>
+            <td>{{event['applicants']['applied']}}</td>
             <td> 
                 <button type="button" id="btn_apply_event" class="btn btn-primary" data-toggle="modal" data-target="#volunter-application-form-modal" onclick="javascript:setEventIdForVolunteerApplicationForm('{{ event['_id']['$oid'] }}');">Apply</button>
             </td>
