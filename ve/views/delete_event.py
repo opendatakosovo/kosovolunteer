@@ -4,16 +4,15 @@ from flask import Response, request
 import urllib2
 from ve import utils
 
-
-class RegisterEvent(View):
+class DeleteEvent(View):
     def dispatch_request(self):
         api_base_url = utils.get_api_url()
-
-        url = '%s/register/volunteer' % (api_base_url)
+        
+        url = '%s/delete/event' % (api_base_url)
         data = request.data
         
         r = urllib2.Request(url, data=data, headers={"Content-Type": "application/json"})
-        urllib2.urlopen(r)
+        res = urllib2.urlopen(r)
         
         resp = Response(status=200, mimetype='application/json')      
         return resp
