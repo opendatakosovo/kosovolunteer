@@ -96,6 +96,7 @@ def configure_logging(app):
     app.logger.info('Logging to: %s', log_path)
 
 from views.index import Index
+from views.events import Events
 from views.create_event import CreateEvent
 from views.delete_event import DeleteEvent
 from views.register_event import RegisterEvent
@@ -117,6 +118,9 @@ def register_page_url_rules(app):
         '/',
         view_func=Index.as_view('index'))
 
+    app.add_url_rule(
+        '/events',
+        view_func=Events.as_view('events'))
 
     app.add_url_rule(
         '/create/event',
