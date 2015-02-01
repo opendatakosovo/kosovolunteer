@@ -93,7 +93,7 @@
       });
 
       function registerEvent(){
-          var url = '/create/event';
+          var url = '{{ config.BASE_PATH }}/create/event';
 
           var name = $('#eventName').val();
           var description = $('#eventDescription').val();
@@ -125,13 +125,13 @@
           })
 
           // Reload the page
-          window.location.href = '/events'
+          window.location.href = '{{ config.BASE_PATH }}/events'
         
       }
 
 
       function deleteEvent(eventId){
-          var url = '/delete/event';
+          var url = '{{ config.BASE_PATH }}/delete/event';
 
           var data_json = {
             "eventId": eventId,
@@ -151,7 +151,7 @@
           })
 
           // Reload the page
-          window.location.href = '/events'
+          window.location.href = '{{ config.BASE_PATH }}/events'
         
       }
 
@@ -161,7 +161,7 @@
       }
 
       function registerVolunteer(event_id){
-          var url = "/register/volunteer";
+          var url = "{{ config.BASE_PATH }}/register/volunteer";
 
           var eventId = $('#eventId').val();
           var firstName = $('#firstName').val();
@@ -190,7 +190,7 @@
               })
 
             // Relaod the page
-            window.location.href = '/events'
+            window.location.href = '{{ config.BASE_PATH }}/events'
       }
 </script>
 
