@@ -122,10 +122,12 @@
               contentType: 'application/json',
               data: data_json_string,
 
-          })
+          }).done(function() {
+            // Reload the page
+            window.location.href = '{{ config.BASE_PATH }}/events';
+          });
 
-          // Reload the page
-          window.location.href = '{{ config.BASE_PATH }}/events'
+          
         
       }
 
@@ -148,10 +150,10 @@
               contentType: 'application/json',
               data: data_json_string,
 
-          })
-
-          // Reload the page
-          window.location.href = '{{ config.BASE_PATH }}/events'
+          }).done(function() {
+            // Reload the page
+            window.location.href = '{{ config.BASE_PATH }}/events';
+          });
         
       }
 
@@ -187,10 +189,10 @@
                 dataType: 'json',
                 contentType: 'application/json',
                 data: jsonStr
-              })
-
-            // Relaod the page
-            window.location.href = '{{ config.BASE_PATH }}/events'
+            }).done(function() {
+              // Reload the page
+              window.location.href = '{{ config.BASE_PATH }}/events';
+            });
       }
 </script>
 
