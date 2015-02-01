@@ -10,9 +10,6 @@ class CreateEvent(View):
         
         url = '%s/create/event' % (api_base_url)
         data = request.data
-
-        print url
-        print data
         
         r = urllib2.Request(url, data=data, headers={"Content-Type": "application/json"})
         res = urllib2.urlopen(r)
