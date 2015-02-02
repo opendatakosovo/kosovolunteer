@@ -263,10 +263,10 @@
       <thead>
         <tr>
           <th></th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Needed Volunteers</th>
-          <th>Number Applied</th>
+          <th style="text-align: center;">Name</th>
+          <th style="text-align: center;">Description</th>
+          <th style="text-align: center;">Needed Volunteers</th>
+          <th style="text-align: center;">Number Applied</th>
         </tr>
       </thead>
       <tbody>
@@ -275,15 +275,15 @@
           <td ><img width="200" src="{{ event['imageUrl'] }}" /></td>
           <td style="width:150px;">{{ event['name'] }}</td>                
           <td style="width:450px;">{{event['description']}}</td>                   
-          <td>{{event['applicants']['needed']}}</td>
-          <td>{{event['applicants']['applied']}}</td>
-          <td>
+          <td align="center">{{event['applicants']['needed']}}</td>
+          <td align="center">{{event['applicants']['applied']}}</td>
+          <td align="right">
               <table>
                 <tr>
                   <td>
                     <button type="button" id="btn_delete_event" class="btn btn-danger" onclick="javascript:deleteEvent('{{ event['_id']['$oid'] }}');">Delete</button>
                   </td>
-                  <td>
+                  <td style="padding-left:10px;">
                     <button type="button" id="btn_apply_event" class="btn btn-success" data-toggle="modal" data-target="#volunter-application-form-modal" onclick="javascript:setEventIdForVolunteerApplicationForm('{{ event['_id']['$oid'] }}');">Volunteer</button>
                   </td>
                 </tr>
