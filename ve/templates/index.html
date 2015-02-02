@@ -17,13 +17,39 @@
     </div>
 </header>
 
+<!-- Events Grid Section -->
+<section id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Events</h2>
+                <hr class="star-primary">
+            </div>
+        </div>
+        <div class="row">
+            {% for event in events %}
+            <div class="col-sm-4 portfolio-item">
+                <a href="#portfolioModal{{ loop.index }}" class="portfolio-link" data-toggle="modal">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img style="width: 400px; height: 260px;" src="{{ event.imageUrl }}" class="img-responsive" alt="">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
 <!-- About Section -->
-<section class="container" id="about">
+<section class="success" id="about">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2>About</h2>
-                <hr class="star-primary">
+                <hr class="star-light">
             </div>
         </div>
         <div class="row">
@@ -36,5 +62,39 @@
         </div>
     </div>
 </section>
+
+{% for event in events %}
+<!-- Event Modals -->
+<div class="portfolio-modal modal fade" id="portfolioModal{{ loop.index }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        <h2>{{ event.name }}</h2>
+                        <hr class="star-primary">
+                        <img src="{{ event.imageUrl }}" style="width: 440px; height: 300px;" class="img-responsive img-centered" alt="">
+                        <p>{{ event.description }}</p>
+                        <ul class="list-inline item-details">
+                            <li>Needed:
+                                <strong>{{ event['applicants']['needed'] }}</strong>
+                            </li>
+                            <li>Applied :
+                                <strong>{{ event['applicants']['applied'] }}</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
 
 {% endblock %}
