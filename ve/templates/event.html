@@ -17,13 +17,24 @@
     <script type="text/javascript">
           $(document).ready(function(){
 
+            $('#btn_save').click(function(){
+              registerEvent();
+            })
+
+            $('#btn_apply').click(function(){
+              registerVolunteer();
+            })
+            
+
+
             // Initiatilize validation rules
             $('.event-form').bootstrapValidator({
-              feedbackIcons: {
+              icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
               },
+
               fields: {
                 eventName: {
                   validators: {
@@ -60,49 +71,50 @@
             });
 
             // Initiatilize validation rules
-            $('.volunteer-form').bootstrapValidator({
-              feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-              },
-              fields: {
-                firstName: {
-                  validators: {
-                    notEmpty : {
-                      message: 'Please input your first name'
-                    }
-                  }
-                },
-                lastName: {
-                  validators: {
-                    notEmpty : {
-                      message: 'Please input your last name'
-                    } 
-                  }
-                },
-                phoneNumber: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Please input your phone number'
-                        },
-                        integer: {
-                            message: 'Your phone number must be a number'
+  
+            $('#volunteer-form').bootstrapValidator({
+                  icon: {
+                      valid: 'glyphicon glyphicon-ok',
+                      invalid: 'glyphicon glyphicon-remove',
+                      validating: 'glyphicon glyphicon-refresh'
+                  },
+                  fields: {
+                      firstName: {
+                          validators: {
+                              notEmpty: {
+                                  message: 'The username is required'
+                              }
+                          }
+                      },
+                      lastName: {
+                          validators: {
+                              notEmpty: {
+                                  message: 'The username is required'
+                              }
+                          }
+                      },
+                       email: {
+                              validators: {
+                                  notEmpty: {
+                                      message: 'Please input your email'
+                                  },
+                                  emailAddress: {
+                                      message: 'The given email is not a valid email address'
+                                  }
+                              }
+                          },
+                      phoneNumber: {
+                              validators: {
+                                  notEmpty: {
+                                      message: 'Please input your phone number'
+                                  },
+                                  integer: {
+                                      message: 'Your phone number must be a number'
+                                  }
+                              }
                         }
-                    }
-                },
-                email: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Please input your email'
-                        },
-                        emailAddress: {
-                            message: 'The given email is not a valid email address'
-                        }
-                    }
-                }  
-              }            
-            });
+                  }
+              });
           });
 
           function registerEvent(){
@@ -125,20 +137,22 @@
               };
 
               //Converting the dictionary to Json_Document
-              var data_json_string = JSON.stringify(data_json);
-              
-              //Making a post request in url with data converted to json
-              $.ajax({
-                  type: 'POST',
-                  url: url,
-                  dataType: 'json',
-                  contentType: 'application/json',
-                  data: data_json_string,
+              if (name != '' && description != ''){
+                  var data_json_string = JSON.stringify(data_json);
+                  
+                  //Making a post request in url with data converted to json
+                  $.ajax({
+                      type: 'POST',
+                      url: url,
+                      dataType: 'json',
+                      contentType: 'application/json',
+                      data: data_json_string,
 
-              })
+                  })
+                }
 
               // Reload the page
-              window.location.href = '/'
+              window.location.href = '/';
             
           }
 
@@ -146,7 +160,7 @@
                 $('#eventId').val(eventId);
           }
 
-          function registerVolunteer(event_id){
+          function registerVolunteer(){
               var url = "/register/volunteer";
 
               var eventId = $('#eventId').val();
@@ -155,28 +169,28 @@
               var email = $('#email').val();
               var phoneNumber =$('#phoneNumber').val();
 
-              var dataJson = {
-                "eventId": eventId,
-                "firstName": firstName,
-                "lastName":lastName,
-                "email": email,
-                "phoneNumber":phoneNumber
-              };
+              if(firstName != '' && lastName != '' && email != '' && phoneNumber != ''){
+                var dataJson = {
+                  "eventId": eventId,
+                  "firstName": firstName,
+                  "lastName":lastName,
+                  "email": email,
+                  "phoneNumber":phoneNumber
+                };
 
-            //Converting the dictionary to Json_Document
-            var jsonStr = JSON.stringify(dataJson);
-            
-              //Making a post request in url with data converted to json
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: jsonStr
-                  })
-
+              //Converting the dictionary to Json_Document
+              var jsonStr = JSON.stringify(dataJson);
+                //Making a post request in url with data converted to json
+                  $.ajax({
+                      type: 'POST',
+                      url: url,
+                      dataType: 'json',
+                      contentType: 'application/json',
+                      data: jsonStr
+                    });
+                  window.location.href = '/';
+              }
                 // Relaod the page
-                window.location.href = '/'
           }
   </script>
 
@@ -207,49 +221,52 @@
               </div>
               <div class="modal-body">
                 <form class='event-form'>
-              <fieldset>
+                  <fieldset>
                 
-                <div class="form-group">
-                  <label for="eventName" class="col-lg-4 control-label">Name:</label>
-                  <div class="controls col-lg-8 ">
-                  <p><input type="text" class="form-control" id="eventName" name="eventName"></p>
+                  <div class="form-group">
+                    <label for="eventName" class="col-lg-4 control-label">Name:</label>
+                    <div class="controls col-lg-8 ">
+                    <p><input type="text" class="form-control" id="eventName" name="eventName"></p>
+                    </div>
                   </div>
+
+                
+                  <div class="form-group">
+                    <label for="eventDescription" class="col-lg-4 control-label">Description:</label>
+                    <div class="controls col-lg-8">
+                      <p><textarea class="form-control" id="eventDescription" name="eventDescription"></textarea></p>
+                      
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="numOfNeededVolunteers" class="col-lg-4">Number of Needed Volunteers:</label>
+                    <div class="controls col-lg-8">
+                      <p><input type="number" class="form-control" id="numOfNeededVolunteers" name="numOfNeededVolunteers"></p>
+            
+                    </div>
+                  </div>
+
+                   <div class="form-group">
+                    <label for="imageUrl" class="col-lg-4 control-label">Image URL:</label>
+                    <div class="controls col-lg-8">
+                       <p><input type="url" class=" form-control" id="imageUrl" name="imageUrl"></p>
+                    </div>
+                  </div>
+
+                   <div class="form-group">
+                    <div class="col-xs-5 col-xs-offset-8">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type= "submit" id="btn_save" class="btn btn-primary">Create</button>
+
+                    </div>
                 </div>
 
-              
-                <div class="form-group">
-                  <label for="eventDescription" class="col-lg-4 control-label">Description:</label>
-                  <div class="controls col-lg-8">
-                    <p><textarea class="form-control" id="eventDescription" name="eventDescription"></textarea></p>
-                    
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="numOfNeededVolunteers" class="col-lg-4">Number of Needed Volunteers:</label>
-                  <div class="controls col-lg-8">
-                    <p><input type="number" class="form-control" id="numOfNeededVolunteers" name="numOfNeededVolunteers"></p>
-          
-                  </div>
-                </div>
 
-                 <div class="form-group">
-                  <label for="imageUrl" class="col-lg-4 control-label">Image URL:</label>
-                  <div class="controls col-lg-8">
-                     <p><input type="url" class=" form-control" id="imageUrl" name="imageUrl"></p>
-                  </div>
-                </div>
-
-
-              </fieldset>
+                </fieldset>
             </form>
       </div>
-              <div class="modal-footer">
-                
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="btn_save" class="btn btn-primary" onclick="javascript:registerEvent();" data-dismiss="modal" >Create</button>
-              </div>
-            </div>
-          </div>
+      </div>
+      </div>
     </div>
     <hr>
     <div id="display_events">
@@ -280,58 +297,62 @@
 
     </div>
 
-    <div class="modal fade" id="volunter-application-form-modal" tabindex="-1" role="dialog" aria-labelledby="volunter-application-form-modal" aria-hidden="true">
-      <div class="modal-dialog">
+  
+<div class="modal fade" id="volunter-application-form-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Volunteer Application</h4>
-          </div>
-          <div class="modal-body">
-            <form class="volunteer-form">
-              <fieldset>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Volunteer Application</h4>
+            </div>
+
+            <div class="modal-body">
+                <!-- The form is placed inside the body of modal -->
+                <form id="volunteer-form" method="post" class="form-horizontal">
                 <div class="form-group">
                   <div for="eventId" class="col-lg-9">
                     <input type="hidden" class="form-control" id="eventId" name="eventId">
                   </div>
                 </div>
-
                 <div class="form-group">
-                 <label for="firstName" class="col-lg-3">First Name:</label>
-                  <div class="col-lg-9">
-                   <p><input type="text" class="form-control" id="firstName" name="firstName"></p>
-                  </div>
+                    <label for="firstName" class="col-lg-3 control-label">First Name:</label>
+                      <div class="col-lg-9">
+                    <input type="text" class="form-control" id="firstName" name="firstName">
+                    </div>
                 </div>
-
                 <div class="form-group">
-                 <label for="lastName" class="col-lg-3">Last Name:</label>
+                 <label for="lastName" class="col-lg-3 control-label">Last Name:</label>
                   <div class="col-lg-9">
-                   <p><input type="text" class="form-control" id="lastName" name="lastName"></p>
+                   <input type="text" class="form-control" id="lastName" name="lastName">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="email" class="col-lg-3 control-label">Email:</label>
                   <div class="col-lg-9">
-                    <p><input type="text" class="form-control" id="email" name="email"></p>
+                    <input type="text" class="form-control" id="email" name="email">
                   </div>
                 </div>
-                
                 <div class="form-group">
-                  <label for="phoneNumber" class="col-lg-3">Phone Number:</label>
+                  <label for="phoneNumber" class="col-lg-3 control-label">Phone Number:</label>
                   <div class="col-lg-9">
-                    <p><input type="text" class="form-control" id="phoneNumber" name="phoneNumber"></p>
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
                   </div>
                 </div>
-              </fieldset>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" id="btn_apply" class="btn btn-primary" onclick="javascript:registerVolunteer();" data-dismiss="modal">Apply</button>
-          </div>
+
+                <div class="form-group">
+                    <div class="col-xs-5 col-xs-offset-8">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="btn_apply" class="btn btn-primary">Apply</button>
+
+                    </div>
+                </div>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
+</div>
+
+
   </body>
 </html>  
