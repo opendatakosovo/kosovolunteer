@@ -18,9 +18,16 @@
 
 
     <script type="text/javascript">
+
       function setEventIdForVolunteerApplicationForm(eventId){
                 $('#eventId').val(eventId);
           }
+
+      function validateEmail(email) { 
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return re.test(email);
+          }
+
       function registerEvent(){
               var url = '/create/event';
 
@@ -69,6 +76,7 @@
             var phoneNumber =$('#phoneNumber').val();
 
             if(firstName != '' && lastName != '' && email != '' && phoneNumber != ''){
+              if(validateEmail(email)){
               var dataJson = {
                 "eventId": eventId,
                 "firstName": firstName,
@@ -90,10 +98,12 @@
                   // Relaod the page
                   window.location.href = '/';
               }
+            }
                 
           }
 
-        function deleteEvent(eventId){
+
+      function deleteEvent(eventId){
             var url = "/delete/event";
              //Making a post request in url with data converted to json
               $.ajax({
@@ -106,7 +116,9 @@
               // Relaod the page
               window.location.href = '/';
             }
-        function hideEmptyCols(table) {
+
+
+      function hideEmptyCols(table) {
             var rows = $("tr", table).length-1;
             var numCols = $("th", table).length;
               for ( var i=1; i<=numCols; i++ ) {
@@ -204,9 +216,10 @@
                                   },
                                   emailAddress: {
                                       message: 'The given email is not a valid email address'
-                                  }
-                              }
-                          },
+                                  },
+                                }
+                          },      
+                        
                       phoneNumber: {
                               validators: {
                                   notEmpty: {
@@ -219,8 +232,9 @@
                         }
                   }
               });
-          
      });
+
+
   </script>
 
   </head>
@@ -278,7 +292,7 @@
                    <div class="form-group">
                     <label for="imageUrl" class="col-lg-4 control-label">Image URL:</label>
                     <div class="controls col-lg-8">
-                       <p><input type="url" class=" form-control" id="imageUrl" name="imageUrl"></p>
+                       <p><input type="url" class="form-control" id="imageUrl" name="imageUrl"></p>
                     </div>
                   </div>
 
@@ -295,7 +309,7 @@
       </div>
       </div>
     </div>
-    
+   
     <div id="display_events">
 
       <table class="table table-striped table-hover" id = "mytable">
@@ -362,22 +376,22 @@
                 <div class="form-group">
                   <label for="email" class="col-lg-3 control-label">Email:</label>
                   <div class="col-lg-9">
-                    <input type="text" class="form-control" id="email" name="email">
+                    <input type="email" class="form-control" id="email" name="email">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="phoneNumber" class="col-lg-3 control-label">Phone Number:</label>
                   <div class="col-lg-9">
-                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
+                    <input type="number" class="form-control" id="phoneNumber" name="phoneNumber">
                   </div>
                 </div>
+
+
 
                 <div class="form-group">
                     <div class="col-xs-5 col-xs-offset-8">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button id="btn_apply" class="btn btn-primary">Apply</button>
-
-
                     </div>
                 </div>
                 </form>
