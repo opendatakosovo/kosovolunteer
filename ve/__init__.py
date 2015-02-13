@@ -98,6 +98,7 @@ def configure_logging(app):
 from views.index import Index
 from views.create_event import CreateEvent
 from views.register_event import RegisterEvent
+from views.delete_event import DeleteEvent
 
 def register_url_rules(app):
     ''' Register URLs
@@ -124,6 +125,10 @@ def register_page_url_rules(app):
     app.add_url_rule(
         '/register/volunteer',
         view_func=RegisterEvent.as_view('register-event'),methods=['POST'])
+
+    app.add_url_rule(
+        '/delete/event',
+        view_func=DeleteEvent.as_view('delete-event'),methods=['POST'])
 
 
 
