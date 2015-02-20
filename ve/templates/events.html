@@ -1,23 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Kosovo Volunters</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-   
-     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    
-    <!-- Bootstrap  JavaScript -->
-    <script type="text/javascript" src="{{ url_for('static', filename='bootstrap/js/bootstrap.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='bootstrapvalidator/js/bootstrapValidator.js') }}"></script>
-    
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrapvalidator/css/bootstrapValidator.css') }}">
-
-
-
-    <script type="text/javascript">
+{% extends "base.html" %}
+{% block body %}
+<script type="text/javascript">
 
       function setEventIdForVolunteerApplicationForm(eventId){
                 $('#eventId').val(eventId);
@@ -61,7 +44,7 @@
 
                   });
                   // Reload the page
-                  window.location.href = '/';
+                  window.location.href = '/event';
                 }
               
           }
@@ -96,7 +79,7 @@
                       data: jsonStr
                     });
                   // Relaod the page
-                  window.location.href = '/';
+                  window.location.href = '/event';
               }
             }
                 
@@ -114,7 +97,7 @@
                   data: eventId
                 });
               // Relaod the page
-              window.location.href = '/';
+              window.location.href = '/event';
             }
 
 
@@ -236,20 +219,12 @@
 
 
   </script>
-
-  </head>
-  <body>
-
-    <div class="navbar navbar-default">
-  <div class="navbar-header">
-    <a class="navbar-brand" href="#">Kosovo Volunteers</a>
-  </div>
-</div>
-    <div class="container">
+  <section>
+   <div class="container" style="padding-top: 20px;" >
             
             <div class="row text-center">
-               
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#basicModal">Create Event</a>
+               <p>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#basicModal">Create Event</a></p>
             </div>
     </div>
 
@@ -310,12 +285,12 @@
       </div>
     </div>
    
-    <div id="display_events">
+    <div id="display_events" style="padding-left:50px;padding-right:50px;">
 
       <table class="table table-striped table-hover" id = "mytable">
         
         <thead> 
-          <tr>
+          <tr><th><th>
             <th>Name</th>
             <th>Description</th>
             <th>Needed Volunteers</th>
@@ -326,6 +301,7 @@
         {% for event in events %}
           <tr id="event-{{ event['_id']['$oid'] }}" data-event-id="{{ event['_id']['$oid'] }}">
             <td style="display:none;">{{ event['_id']['$oid'] }}</td>
+            <td> <img src="{{event['imageUrl']}}" style="width:150px;height:100px"></td>
             <td>{{ event['name'] }}</td>                
             <td style="width:500px;">{{event['description']}}</td>                   
             <td>{{event['applicants']['needed']}}</td>
@@ -399,7 +375,6 @@
         </div>
     </div>
 </div>
+</section>
 
-
-  </body>
-</html>  
+{% endblock %}

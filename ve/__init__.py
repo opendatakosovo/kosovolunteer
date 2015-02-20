@@ -99,6 +99,10 @@ from views.index import Index
 from views.create_event import CreateEvent
 from views.register_event import RegisterEvent
 from views.delete_event import DeleteEvent
+from views.event import Event
+
+
+
 
 def register_url_rules(app):
     ''' Register URLs
@@ -117,6 +121,9 @@ def register_page_url_rules(app):
         '/',
         view_func=Index.as_view('index'))
 
+    app.add_url_rule(
+        '/event',
+        view_func=Event.as_view('events'))
 
     app.add_url_rule(
         '/create/event',
@@ -129,6 +136,7 @@ def register_page_url_rules(app):
     app.add_url_rule(
         '/delete/event',
         view_func=DeleteEvent.as_view('delete-event'),methods=['POST'])
+
 
 
 
